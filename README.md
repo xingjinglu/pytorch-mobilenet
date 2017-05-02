@@ -3,10 +3,10 @@ Implementation of MobileNet, modified from https://github.com/pytorch/examples/t
 nohup python main.py -a mobilenet ImageNet-Folder  > log.txt &
 
 Results
-- sgd:  * Prec@1 68.798 Prec@5 88.726
-- rmsprop:  * Prec@1 0.104 Prec@5 0.494
-- rmsprop init from sgd:  * Prec@1 69.526 Prec@5 88.978
-- paper: top1 70.6
+- sgd:                    top1 68.798 top5 88.726
+- rmsprop:                top1 0.104  top5 0.494
+- rmsprop init from sgd:  top1 69.526 top5 88.978
+- paper:                  top1 70.6
 
 ---------
 
