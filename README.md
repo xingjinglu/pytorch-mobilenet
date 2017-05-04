@@ -11,13 +11,12 @@ Results
 Benchmark:
 Titan-X
 ```
-  resnet18 : 0.006040
-   alexnet : 0.002702
-     vgg16 : 0.003779
-squeezenet : 0.010496
- mobilenet : 0.078170
+  resnet18 : 0.004030
+   alexnet : 0.001395
+     vgg16 : 0.002310
+squeezenet : 0.009848
+ mobilenet : 0.073611
 ```
-
 ---------
 
 ```
