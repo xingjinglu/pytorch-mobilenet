@@ -9,6 +9,7 @@ Results
 - paper:                  top1 70.6
 
 Benchmark:
+Titan-X
 ```
   resnet18 : 0.006040
    alexnet : 0.002702
