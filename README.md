@@ -3,9 +3,9 @@ Implementation of MobileNet, modified from https://github.com/pytorch/examples/t
 nohup python main.py -a mobilenet ImageNet-Folder  > log.txt &
 
 Results
-- sgd [download](https://pan.baidu.com/s/1nuRcK3Z) :                    top1 68.848 top5 88.740
+- sgd :                    top1 68.848 top5 88.740 [download](https://pan.baidu.com/s/1nuRcK3Z)
 - rmsprop:                top1 0.104  top5 0.494
-- rmsprop init from sgd [donwload](https://pan.baidu.com/s/1eRCxYKU) :  top1 69.526 top5 88.978
+- rmsprop init from sgd :  top1 69.526 top5 88.978 [donwload](https://pan.baidu.com/s/1eRCxYKU)
 - paper:                  top1 70.6
 
 Benchmark:
