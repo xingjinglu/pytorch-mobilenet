@@ -72,12 +72,10 @@ if __name__ == '__main__':
     alexnet = models.alexnet().cuda()
     vgg16 = models.vgg16().cuda()
     squeezenet = models.squeezenet1_0().cuda()
-    inception3 = models.Inception3().cuda()
     mobilenet = MobileNet().cuda()
 
     speed(resnet18, 'resnet18')
     speed(alexnet, 'alexnet')
     speed(vgg16, 'vgg16')
     speed(squeezenet, 'squeezenet')
-    #speed(inception3, 'inception3')
     speed(mobilenet, 'mobilenet')

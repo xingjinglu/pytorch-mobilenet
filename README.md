@@ -8,6 +8,15 @@ Results
 - rmsprop init from sgd:  top1 69.526 top5 88.978
 - paper:                  top1 70.6
 
+Benchmark:
+```
+  resnet18 : 0.006040
+   alexnet : 0.002702
+     vgg16 : 0.003779
+squeezenet : 0.010496
+ mobilenet : 0.078170
+```
+
 ---------
 
 ```
