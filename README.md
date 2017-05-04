@@ -9,7 +9,8 @@ Results
 - paper:                  top1 70.6
 
 Benchmark:
-Titan-X
+
+Titan-X, batchsize = 16
 ```
   resnet18 : 0.004030
    alexnet : 0.001395
@@ -17,6 +18,15 @@ Titan-X
 squeezenet : 0.009848
  mobilenet : 0.073611
 ```
+Titan-X, batchsize = 1
+```
+  resnet18 : 0.003688
+   alexnet : 0.001179
+     vgg16 : 0.002055
+squeezenet : 0.003385
+ mobilenet : 0.076977
+```
+
 ---------
 
 ```

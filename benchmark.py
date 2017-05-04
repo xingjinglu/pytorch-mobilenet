@@ -54,7 +54,7 @@ class MobileNet(nn.Module):
 
 def speed(model, name):
     t0 = time.time()
-    input = torch.rand(16,3,224,224).cuda()
+    input = torch.rand(1,3,224,224).cuda()
     input = Variable(input, volatile = True)
     t1 = time.time()
 
