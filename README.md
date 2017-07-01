@@ -1,4 +1,6 @@
 Implementation of MobileNet, modified from https://github.com/pytorch/examples/tree/master/imagenet.
+imagenet data is processed [as described here](https://github.com/facebook/fb.resnet.torch/blob/master/INSTALL.md#download-the-imagenet-dataset)
+
 
 nohup python main.py -a mobilenet ImageNet-Folder  > log.txt &
 
