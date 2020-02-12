@@ -7,4 +7,4 @@
 
 
 # run mobilenet with pretrained model.
-#python main.py --resume ./mobilenet_sgd_68.848.pth.tar -a mobilenet  --evaluate ~/imagenet/
+python main.py --resume ./mobilenet_sgd_68.848.pth.tar -a mobilenet  --evaluate ~/imagenet/
