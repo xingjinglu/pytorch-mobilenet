@@ -98,6 +98,7 @@ class Net(nn.Module):
         x = self.model(x)
         x = x.view(-1, 1024)
         x = self.fc(x)
+        print("after fc:", x)
         return x
 
 def main():
@@ -128,8 +129,14 @@ def main():
     optimizer = torch.optim.SGD(model.parameters(), args.lr,
                                 momentum=args.momentum,
                                 weight_decay=args.weight_decay)
+    # Get layer name.
+    for param_tensor in model.state_dict():
+        print(param_tensor, "\t", model.state_dict()[param_tensor].size())
 
-   # optionally resume from a checkpoint
+    for var_name in optimizer.state_dict():
+        print(var_name, "\t", optimizer.state_dict()[var_name])
+
+    # optionally resume from a checkpoint
     if args.resume:
         if os.path.isfile(args.resume):
             print("=> loading checkpoint '{}'".format(args.resume))
