@@ -13,6 +13,8 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import torchvision.models as models
 
+from collections import OrderedDict
+
 
 model_names = sorted(name for name in models.__dict__
     if name.islower() and not name.startswith("__")
@@ -122,10 +124,12 @@ def main():
         model.features = torch.nn.DataParallel(model.features)
         model.cuda()
     else:
-        model = torch.nn.DataParallel(model).cuda()
+        #model = torch.nn.DataParallel(model).cuda()
+        model = torch.nn.DataParallel(model)
 
     # define loss function (criterion) and optimizer
-    criterion = nn.CrossEntropyLoss().cuda()
+    #criterion = nn.CrossEntropyLoss().cuda()
+    criterion = nn.CrossEntropyLoss().cpu()
 
     optimizer = torch.optim.SGD(model.parameters(), args.lr,
                                 momentum=args.momentum,
@@ -141,17 +145,32 @@ def main():
     if args.resume:
         if os.path.isfile(args.resume):
             print("=> loading checkpoint '{}'".format(args.resume))
-            checkpoint = torch.load(args.resume)
-            args.start_epoch = checkpoint['epoch']
-            best_prec1 = checkpoint['best_prec1']
-            model.load_state_dict(checkpoint['state_dict'])
-            optimizer.load_state_dict(checkpoint['optimizer'])
-            print("=> loaded checkpoint '{}' (epoch {})"
-                  .format(args.resume, checkpoint['epoch']))
+            #checkpoint = torch.load(args.resume)
+            #args.start_epoch = checkpoint['epoch']
+            #best_prec1 = checkpoint['best_prec1']
+            #model.load_state_dict(checkpoint['state_dict'])
+            #optimizer.load_state_dict(checkpoint['optimizer'])
+            #print("=> loaded checkpoint '{}' (epoch {})"
+            #      .format(args.resume, checkpoint['epoch']))
         else:
             print("=> no checkpoint found at '{}'".format(args.resume))
 
-    cudnn.benchmark = True
+    device = torch.device('cpu')
+    checkpoint = torch.load(args.resume, map_location=device)
+    #new_state_dict = OrderedDict()
+    #for k, v in checkpoint.items():
+    #    if(k == 'state_dict'):
+    #        print (k)
+    #        for k1, v1 in v.items():
+    #            name = k1[7:]
+    #            new_state_dict[name] = v1
+    #model.module.load_state_dict(new_state_dict)
+    model.load_state_dict(checkpoint['state_dict'])
+    args.start_epoch = checkpoint['epoch']
+    best_prec1 = checkpoint['best_prec1']
+    optimizer.load_state_dict(checkpoint['optimizer'])
+
+    cudnn.benchmark = False
 
     # Data loading code
     traindir = os.path.join(args.data, 'train')
@@ -173,11 +192,13 @@ def main():
             #transforms.CenterCrop(224),
     val_loader = torch.utils.data.DataLoader(
         datasets.ImageFolder(valdir, transforms.Compose([
+            transforms.Scale(256),
+            transforms.CenterCrop(224),
             transforms.ToTensor(),
             normalize,
         ])),
         batch_size=args.batch_size, shuffle=False,
-        num_workers=args.workers, pin_memory=True)
+        num_workers=args.workers, pin_memory=False)
 
     if args.evaluate:
         validate(val_loader, model, criterion)
@@ -219,7 +240,8 @@ def train(train_loader, model, criterion, optimizer, epoch):
         # measure data loading time
         data_time.update(time.time() - end)
 
-        target = target.cuda(async=True)
+        #target = target.cuda(async=True)
+        target = target.cpu()
         input_var = torch.autograd.Variable(input)
         target_var = torch.autograd.Variable(target)
 
@@ -268,15 +290,16 @@ def validate(val_loader, model, criterion):
 
     end = time.time()
     for i, (input, target) in enumerate(val_loader):
-        print("input: ", input)
-        return 
-        target = target.cuda(async=True)
+        #target = target.cuda(async=True)
+        target = target.cpu()
         input_var = torch.autograd.Variable(input, volatile=True)
         target_var = torch.autograd.Variable(target, volatile=True)
 
 
         # compute output
         output = model(input_var)
+        return
+
         loss = criterion(output, target_var)
 
         # measure accuracy and record loss
